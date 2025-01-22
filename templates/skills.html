@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1 class="display-4">Skills & Expertise</h1>
+            <p class="lead">My technical skills and competencies</p>
+        </div>
+    </div>
+
+    <!-- Programming Languages -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="h3 mb-4">Programming Languages</h2>
+            <div class="row">
+                {% for skill in data.skills.programming_languages %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ skill.name }}</h5>
+                            <div class="progress">
+                                {% if skill.level == 'Proficient' %}
+                                    {% set percentage = 90 %}
+                                {% elif skill.level == 'Intermediate' %}
+                                    {% set percentage = 70 %}
+                                {% else %}
+                                    {% set percentage = 50 %}
+                                {% endif %}
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: {{ percentage }}%"
+                                     aria-valuenow="{{ percentage }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                    {{ skill.level }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Frameworks -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="h3 mb-4">Frameworks & Libraries</h2>
+            <div class="row">
+                {% for framework in data.skills.frameworks %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ framework.name }}</h5>
+                            <div class="progress">
+                                {% if framework.level == 'Proficient' %}
+                                    {% set percentage = 90 %}
+                                {% elif framework.level == 'Intermediate' %}
+                                    {% set percentage = 70 %}
+                                {% else %}
+                                    {% set percentage = 50 %}
+                                {% endif %}
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: {{ percentage }}%"
+                                     aria-valuenow="{{ percentage }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                    {{ framework.level }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

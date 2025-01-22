@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="row">
+        <div class="col-12 text-center mb-5" data-aos="fade-down">
+            <h1 class="display-4">Side Hustles</h1>
+            <p class="lead">Exploring opportunities beyond the regular work</p>
+        </div>
+    </div>
+
+    <!-- Chess Section -->
+    <div class="row mb-5">
+        <div class="col-12" data-aos="fade-up">
+            <div class="card chess-section-card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2 class="h3 mb-3">{{ data.chess_profile.title }}</h2>
+                            <p class="mb-3">{{ data.chess_profile.description }}</p>
+                            <div class="mb-3">
+                                <span class="badge me-2">Rating: {{ data.chess_profile.rating }}</span>
+                                <span class="badge">Active Player</span>
+                            </div>
+                            <div class="achievements mb-3">
+                                {% for achievement in data.chess_profile.achievements %}
+                                <div class="achievement-item">
+                                    <i class="bi bi-trophy-fill text-warning me-2"></i>
+                                    {{ achievement }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chessModal">
+                                <i class="bi bi-controller me-2"></i>Challenge Me
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="chess-animation">
+                                <div class="knight-piece">♞</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Hustles Grid -->
+    <div class="row">
+        {% for hustle in data.side_hustles %}
+        <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+            <div class="card hustle-card h-100">
+                <div class="card-body">
+                    <!-- Header -->
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="hustle-icon me-3">
+                            <i class="bi {{ hustle.icon }} display-5 text-gradient"></i>
+                        </div>
+                        <div>
+                            <h3 class="card-title h4 mb-1">{{ hustle.title }}</h3>
+                            <p class="text-gradient mb-0">{{ hustle.platform }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Period and Earnings -->
+                    <div class="mb-3 d-flex justify-content-between align-items-center">
+                        <span class="badge">{{ hustle.period }}</span>
+                        <span class="earnings-badge">{{ hustle.earnings }}</span>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="card-text">{{ hustle.description }}</p>
+
+                    <!-- Skills Used -->
+                    <div class="mb-3">
+                        <h6 class="text-muted mb-2">Skills Used:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for skill in hustle.skills_used %}
+                            <span class="badge bg-secondary">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="achievements">
+                        <h6 class="text-muted mb-2">Key Achievements:</h6>
+                        <ul class="list-unstyled">
+                            {% for achievement in hustle.achievements %}
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                {{ achievement }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Stats Section -->
+    <div class="row mt-5" data-aos="fade-up">
+        <div class="col-12">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <h3 class="h4 text-center mb-4">Overall Impact</h3>
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="stat-item">
+                                <i class="bi bi-star-fill display-6 mb-2 text-gradient"></i>
+                                <h4 class="h2 mb-0">4.9/5</h4>
+                                <p class="text-muted">Average Rating</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="stat-item">
+                                <i class="bi bi-people-fill display-6 mb-2 text-gradient"></i>
+                                <h4 class="h2 mb-0">20+</h4>
+                                <p class="text-muted">Clients Served</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-item">
+                                <i class="bi bi-graph-up display-6 mb-2 text-gradient"></i>
+                                <h4 class="h2 mb-0">$3000+</h4>
+                                <p class="text-muted">Total Earnings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include the chess challenge modal -->
+{% include 'includes/chess_challenge.html' %}
+
+<!-- Add these styles to your existing CSS or include them here -->
+<style>
+.hustle-card {
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.hustle-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+}
+
+.earnings-badge {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.stats-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+}
+
+.stat-item {
+    padding: 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+}
+
+.stat-item i {
+    color: var(--accent-color);
+}
+
+.chess-section-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+    border: none;
+    margin-bottom: 2rem;
+}
+
+.chess-animation {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.knight-piece {
+    font-size: 80px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: float 3s ease-in-out infinite;
+}
+
+.achievement-item {
+    margin-bottom: 0.5rem;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, -60%); }
+}
+</style>
+{% endblock %} 

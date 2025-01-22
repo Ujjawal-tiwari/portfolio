@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row align-items-center min-vh-75">
+        <div class="col-lg-6">
+            <h1 class="display-4">{{ data.personal_info.name }}</h1>
+            <h2 class="h3 text-secondary">{{ data.personal_info.title }}</h2>
+            <p class="lead mt-3">{{ data.personal_info.tagline }}</p>
+            <div class="mt-4">
+                <a href="/projects" class="btn btn-primary me-2">View My Work</a>
+                <a href="/contact" class="btn btn-outline-primary">Contact Me</a>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center">
+            <!-- Add your professional photo here -->
+            <img src="{{ url_for('static', filename='images/profile.jpg') }}" 
+                 alt="{{ data.personal_info.name }}" 
+                 class="img-fluid rounded-circle"
+                 style="max-width: 300px;">
+        </div>
+    </div>
+
+    <!-- Featured Skills Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="text-center mb-4">Core Skills</h3>
+        </div>
+        {% for skill in data.skills.programming_languages[:3] %}
+        <div class="col-md-4 text-center">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ skill.name }}</h5>
+                    <p class="card-text text-muted">{{ skill.level }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Featured Projects Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="text-center mb-4">Featured Projects</h3>
+        </div>
+        {% for project in data.projects[:2] %}
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for tech in project.technologies %}
+                        <span class="badge bg-secondary">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    {% if project.github_link %}
+                    <a href="{{ project.github_link }}" class="btn btn-sm btn-outline-primary mt-3">View on GitHub</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

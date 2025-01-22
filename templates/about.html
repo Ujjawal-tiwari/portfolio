@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1 class="display-4">About Me</h1>
+            <p class="lead">{{ data.personal_info.tagline }}</p>
+        </div>
+    </div>
+
+    <!-- Education Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="h3 mb-4">Education</h2>
+            {% for edu in data.education %}
+            <div class="card interactive-card mb-3" data-aos="fade-up" 
+                 onclick="window.open('{{ edu.website }}', '_blank')" 
+                 role="button">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center mb-3 mb-md-0">
+                            {% if edu.logo %}
+                            <img src="{{ url_for('static', filename='images/education/' + edu.logo) }}" 
+                                 alt="{{ edu.institution }}" 
+                                 class="institution-logo">
+                            {% else %}
+                            <i class="bi bi-building display-4 text-gradient"></i>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-10">
+                            <h5 class="card-title mb-1">{{ edu.degree }}</h5>
+                            <h6 class="card-subtitle mb-2 text-gradient">{{ edu.institution }}</h6>
+                            <p class="card-text">
+                                <span class="badge me-2">{{ edu.duration }}</span>
+                                {% if edu.gpa %}
+                                <span class="badge">GPA: {{ edu.gpa }}</span>
+                                {% endif %}
+                            </p>
+                            {% if edu.achievements %}
+                            <div class="mt-2">
+                                <ul class="list-unstyled">
+                                    {% for achievement in edu.achievements %}
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>{{ achievement }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-overlay">
+                        <span>Click to visit website <i class="bi bi-box-arrow-up-right ms-2"></i></span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Experience Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="h3 mb-4">Professional Experience</h2>
+            {% for exp in data.experience %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ exp.role }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ exp.company }}</h6>
+                    <p class="card-text">
+                        <small class="text-muted">{{ exp.duration }}</small>
+                    </p>
+                    <p class="card-text">{{ exp.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

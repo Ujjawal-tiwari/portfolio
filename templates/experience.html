@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1 class="display-4">Professional Experience</h1>
+            <p class="lead">My journey in the tech industry</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="timeline">
+                {% for exp in data.experience %}
+                <div class="card interactive-card mb-4" data-aos="fade-up" 
+                     onclick="window.open('{{ exp.company_url }}', '_blank')"
+                     role="button">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center mb-3 mb-md-0">
+                                {% if exp.logo %}
+                                <img src="{{ url_for('static', filename='images/companies/' + exp.logo) }}" 
+                                     alt="{{ exp.company }}" 
+                                     class="company-logo">
+                                {% else %}
+                                <i class="bi bi-building display-4 text-gradient"></i>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-10">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title mb-0">{{ exp.role }}</h5>
+                                    <span class="badge">{{ exp.duration }}</span>
+                                </div>
+                                <h6 class="card-subtitle mb-3 text-gradient">{{ exp.company }}</h6>
+                                <p class="card-text">{{ exp.description }}</p>
+                                
+                                {% if exp.achievements %}
+                                <div class="mt-3">
+                                    <h6 class="mb-2">Key Achievements:</h6>
+                                    <ul class="list-unstyled">
+                                        {% for achievement in exp.achievements %}
+                                        <li class="mb-2">
+                                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                            {{ achievement }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+
+                                {% if exp.technologies %}
+                                <div class="mt-3">
+                                    <div class="d-flex flex-wrap gap-2">
+                                        {% for tech in exp.technologies %}
+                                        <span class="badge bg-secondary">{{ tech }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-overlay">
+                            <span>Click to visit company website <i class="bi bi-box-arrow-up-right ms-2"></i></span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Certifications Section -->
+    {% if data.certifications %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="h3 mb-4">Certifications</h2>
+            <div class="row">
+                {% for cert in data.certifications %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ cert.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ cert.issuer }}</h6>
+                            <p class="card-text">
+                                <small class="text-muted">Issued: {{ cert.date }}</small>
+                            </p>
+                            {% if cert.link %}
+                            <a href="{{ cert.link }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                View Certificate
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

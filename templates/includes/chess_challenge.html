@@ -1,0 +1,43 @@
+<div class="chess-challenge-btn" data-bs-toggle="modal" data-bs-target="#chessModal">
+    <div class="knight-icon">♞</div>
+    <span>Sharp Knight, Wanna Try Me?</span>
+</div>
+
+<!-- Chess Challenge Modal -->
+<div class="modal fade" id="chessModal" tabindex="-1" aria-labelledby="chessModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chessModalLabel">Chess Challenge</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="chess-board-preview mb-4">
+                    <!-- Animated Chess Board Preview -->
+                    <div class="chess-board">
+                        <div class="piece knight">♞</div>
+                    </div>
+                </div>
+                <form id="challengeForm" action="{{ url_for('send_chess_challenge') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="challenger_name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="challenger_name" name="challenger_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="challenger_email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="challenger_email" name="challenger_email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time_control" class="form-label">Preferred Time Control</label>
+                        <select class="form-select" id="time_control" name="time_control">
+                            <option value="blitz">Blitz (5+0)</option>
+                            <option value="rapid">Rapid (10+0)</option>
+                            <option value="classical">Classical (30+0)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Send Challenge</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 

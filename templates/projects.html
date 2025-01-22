@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1 class="display-4">My Projects</h1>
+            <p class="lead">Here are some of my notable projects</p>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for project in data.projects %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                {% if project.image %}
+                <img src="{{ url_for('static', filename='images/projects/' + project.image) }}" 
+                     class="card-img-top" alt="{{ project.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        {% for tech in project.technologies %}
+                        <span class="badge bg-secondary">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    {% if project.github_link %}
+                    <a href="{{ project.github_link }}" class="btn btn-outline-primary" target="_blank">
+                        View on GitHub
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 
