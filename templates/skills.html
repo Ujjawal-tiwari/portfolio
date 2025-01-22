@@ -9,12 +9,12 @@
         </div>
     </div>
 
-    <!-- Programming Languages -->
+    {% for category, skills in data.skills.items() %}
     <div class="row mb-5">
         <div class="col-12">
-            <h2 class="h3 mb-4">Programming Languages</h2>
+            <h2 class="h3 mb-4">{{ category }}</h2>
             <div class="row">
-                {% for skill in data.skills.programming_languages %}
+                {% for skill in skills %}
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body">
@@ -27,8 +27,8 @@
                                 {% else %}
                                     {% set percentage = 50 %}
                                 {% endif %}
-                                <div class="progress-bar" role="progressbar" 
-                                     style="width: {{ percentage }}%"
+                                <div class="progress-bar bg-success" role="progressbar" 
+                                     style="width: {{ percentage }}%" 
                                      aria-valuenow="{{ percentage }}" 
                                      aria-valuemin="0" 
                                      aria-valuemax="100">
@@ -42,39 +42,27 @@
             </div>
         </div>
     </div>
-
-    <!-- Frameworks -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="h3 mb-4">Frameworks & Libraries</h2>
-            <div class="row">
-                {% for framework in data.skills.frameworks %}
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ framework.name }}</h5>
-                            <div class="progress">
-                                {% if framework.level == 'Proficient' %}
-                                    {% set percentage = 90 %}
-                                {% elif framework.level == 'Intermediate' %}
-                                    {% set percentage = 70 %}
-                                {% else %}
-                                    {% set percentage = 50 %}
-                                {% endif %}
-                                <div class="progress-bar" role="progressbar" 
-                                     style="width: {{ percentage }}%"
-                                     aria-valuenow="{{ percentage }}" 
-                                     aria-valuemin="0" 
-                                     aria-valuemax="100">
-                                    {{ framework.level }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
+
+<style>
+.progress {
+    height: 25px;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    line-height: 25px;
+    font-size: 0.9rem;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+</style>
 {% endblock %} 

@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="education-journey">
+    <!-- Parallax Header with Background Image -->
+    <div class="journey-header" style="--bg-image: url({{ url_for('static', filename='images/education/' + education.banner_image) }})">
+        <div class="overlay">
+            <h1>My Journey at {{ education.institution }}</h1>
+            <p class="lead">{{ education.duration }}</p>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <!-- Academic Performance -->
+        <section class="mb-5">
+            <h2>Academic Performance</h2>
+            <div class="row">
+                {% for semester in education.semesters %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ semester.name }}</h5>
+                            <p class="card-text">GPA: {{ semester.gpa }}</p>
+                            {% if semester.marksheet %}
+                            <a href="{{ url_for('static', filename='documents/' + semester.marksheet) }}" 
+                               class="btn btn-sm btn-outline-primary" target="_blank">
+                                View Marksheet
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Achievements Gallery -->
+        <section class="mb-5">
+            <h2>Achievements & Memories</h2>
+            <div class="row g-4">
+                {% for achievement in education.achievements %}
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        {% if achievement.image %}
+                        <img src="{{ url_for('static', filename='images/education/achievements/' + achievement.image) }}" 
+                             class="card-img-top" alt="{{ achievement.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ achievement.title }}</h5>
+                            <p class="card-text">{{ achievement.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Graduation Ceremony -->
+        <section class="mb-5">
+            <h2>Graduation Ceremony</h2>
+            <div class="graduation-gallery">
+                {% for photo in education.graduation_photos %}
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='images/education/graduation/' + photo.image) }}" 
+                         alt="{{ photo.caption }}"
+                         data-aos="fade-up">
+                    <div class="caption">{{ photo.caption }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.education-journey {
+    position: relative;
+}
+
+.journey-header {
+    height: 60vh;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.journey-header .overlay {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2rem;
+    width: 100%;
+}
+
+.graduation-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-item .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+}
+</style>
+{% endblock %} 

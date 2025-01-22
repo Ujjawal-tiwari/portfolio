@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, jsonify
+from flask import Flask, render_template, request, flash, redirect, url_for, jsonify, abort
 from data.portfolio_data import portfolio_data
 import smtplib
 from email.mime.text import MIMEText
@@ -50,7 +50,7 @@ def send_email(name, email, message):
         return False
 
 @app.route('/')
-def home():
+def index():
     return render_template('index.html', data=portfolio_data)
 
 @app.route('/about')
@@ -147,6 +147,16 @@ def send_chess_challenge():
             'success': False,
             'message': 'Error sending challenge. Please try again.'
         }), 500
+
+@app.route('/education/<int:edu_index>')
+def education_journey(edu_index):
+    try:
+        education = portfolio_data['education'][edu_index]
+        return render_template('education_journey.html', 
+                             education=education,
+                             data=portfolio_data)
+    except IndexError:
+        return "Education entry not found", 404
 
 if __name__ == '__main__':
     app.run(debug=True) 

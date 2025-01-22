@@ -10,26 +10,42 @@ portfolio_data = {
     },
     
     'skills': {
-        'programming_languages': [
+        'Programming Languages & Technologies': [
             {'name': 'Python', 'level': 'Proficient'},
-            {'name': 'Java', 'level': 'Intermediate'},
-            {'name': 'C++', 'level': 'Intermediate'}
+            {'name': 'XML & JavaScript', 'level': 'Proficient'},
+            {'name': 'AI/ML', 'level': 'Proficient'},
+            {'name': 'IoT', 'level': 'Intermediate'}
         ],
-        'frameworks': [
-            {'name': 'TensorFlow', 'level': 'Proficient'},
-            {'name': 'PyTorch', 'level': 'Intermediate'},
-            {'name': 'Flask', 'level': 'Intermediate'}
+        'Frameworks': [
+            {'name': 'Flask', 'level': 'Proficient'}
         ],
-        'databases': [
+        'Databases': [
             {'name': 'MySQL', 'level': 'Intermediate'},
             {'name': 'MongoDB', 'level': 'Intermediate'}
+        ],
+        'Management Tools': [
+            {'name': 'Miro', 'level': 'Proficient'},
+            {'name': 'Figma', 'level': 'Intermediate'},
+            {'name': 'Swagger', 'level': 'Proficient'},
+            {'name': 'Postman-API', 'level': 'Intermediate'}
+        ],
+        'Cloud Services': [
+            {'name': 'AWS', 'level': 'Intermediate'},
+            {'name': 'Azure', 'level': 'Intermediate'}
+        ],
+        'AI/ML Tools': [
+            {'name': 'TensorFlow', 'level': 'Proficient'},
+            {'name': 'PyTorch', 'level': 'Intermediate'},
+            {'name': 'Hugging Face Transformers', 'level': 'Intermediate'},
+            {'name': 'OpenCV', 'level': 'Intermediate'},
+            {'name': 'Scikit-learn', 'level': 'Intermediate'}
         ]
     },
     
     'projects': [
         {
             'title': 'Doctor Prediction Model',
-            'description': 'Developed a machine learning model to predict...',
+            'description': 'Developed a machine learning model to predict medical diagnoses based on patient symptoms and historical data. Implemented using advanced ML algorithms and achieved high accuracy in preliminary testing.',
             'technologies': ['Python', 'TensorFlow', 'Scikit-learn'],
             'github_link': 'https://github.com/yourusername/project1'
         },
@@ -42,8 +58,8 @@ portfolio_data = {
             'company': 'Tech Company',
             'company_url': 'https://company-website.com',
             'duration': 'Summer 2023',
-            'description': 'Worked on cutting-edge ML projects...',
-            'logo': 'company_logo.png',  # Add logo to static/images/companies/
+            'description': 'Worked on cutting-edge ML projects, developing and implementing machine learning models for real-world applications. Collaborated with cross-functional teams to deliver innovative solutions.',
+            'logo': 'company_logo.png',
             'achievements': [
                 'Developed ML model with 95% accuracy',
                 'Reduced processing time by 30%'
@@ -54,19 +70,19 @@ portfolio_data = {
             'company': 'SOUL LIMITED',
             'role': 'AI Developer',
             'duration': 'Jan 2024 - Present',
-            'description': 'Working on AI/ML projects...'
+            'description': 'Leading AI/ML initiatives focused on developing intelligent solutions. Working on implementing state-of-the-art machine learning models and deploying them to production.'
         },
-         {
+        {
             'company': 'Johnson Controls',
             'role': 'Web Developer',
             'duration': 'Jan 2023 - Oct 2023',
-            'description': 'Working on AI/ML projects...'
+            'description': 'Developed and maintained web applications using modern technologies. Implemented responsive designs and integrated backend services.'
         },
-         {
+        {
             'company': 'HighRaius Corporations',
             'role': 'Intern',
             'duration': 'Jan 2022 - May 2022',
-            'description': 'Working on AI/ML projects...'
+            'description': 'Gained hands-on experience in software development and AI/ML projects. Contributed to team projects and learned industry best practices.'
         }
     ],
     
@@ -77,10 +93,30 @@ portfolio_data = {
             'duration': '2020 - 2024',
             'gpa': '8.5',
             'website': 'https://kiit.ac.in',
-            'logo': 'kiit_logo.png',  # Add logo to static/images/education/
+            'logo': 'kiit_logo.png',
+            'banner_image': 'kiit_campus.jpg',
             'achievements': [
-                'Dean\'s List student',
-                'Technical Club Lead'
+                {
+                    'title': "Dean's List Award",
+                    'description': 'Achieved academic excellence',
+                    'image': 'deans_list.jpg'
+                },
+                # Add more achievements
+            ],
+            'semesters': [
+                {
+                    'name': 'Semester 1',
+                    'gpa': '8.7',
+                    'marksheet': 'sem1_marksheet.pdf'
+                },
+                # Add more semesters
+            ],
+            'graduation_photos': [
+                {
+                    'image': 'grad1.jpg',
+                    'caption': 'Graduation Ceremony 2024'
+                },
+                # Add more photos
             ]
         },
         {
