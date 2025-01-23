@@ -3,7 +3,7 @@
 {% block content %}
 <div class="education-journey">
     <!-- Parallax Header with Background Image -->
-    <div class="journey-header" style="--bg-image: url({{ url_for('static', filename='images/education/' + education.banner_image) }})">
+    <div class="journey-header" style="--bg-image: url({{ url_for('static', filename='images/' + education.banner_image) }})">
         <div class="overlay">
             <h1>My Journey at {{ education.institution }}</h1>
             <p class="lead">{{ education.duration }}</p>
@@ -37,21 +37,22 @@
         <!-- Achievements Gallery -->
         <section class="mb-5">
             <h2>Achievements & Memories</h2>
-            <div class="row g-4">
-                {% for achievement in education.achievements %}
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        {% if achievement.image %}
-                        <img src="{{ url_for('static', filename='images/education/achievements/' + achievement.image) }}" 
-                             class="card-img-top" alt="{{ achievement.title }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ achievement.title }}</h5>
-                            <p class="card-text">{{ achievement.description }}</p>
+            <div class="achievements-gallery">
+                <div class="gallery-scroll">
+                    {% for achievement in education.achievements %}
+                    <div class="gallery-item" data-aos="fade-up">
+                        <div class="image-container">
+                            <img src="{{ url_for('static', filename='images/achievements/' + achievement.image) }}" 
+                                 alt="{{ achievement.caption }}">
+                            <div class="image-caption">{{ achievement.caption }}</div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                <div class="scroll-indicator">
+                    <i class="bi bi-arrow-left-right"></i>
+                    <span>Scroll to see more</span>
+                </div>
             </div>
         </section>
 
@@ -61,7 +62,7 @@
             <div class="graduation-gallery">
                 {% for photo in education.graduation_photos %}
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='images/education/graduation/' + photo.image) }}" 
+                    <img src="{{ url_for('static', filename='images/documents/' + photo.image) }}" 
                          alt="{{ photo.caption }}"
                          data-aos="fade-up">
                     <div class="caption">{{ photo.caption }}</div>
@@ -131,6 +132,96 @@
     color: white;
     padding: 0.5rem;
     text-align: center;
+}
+
+/* Add these styles for the horizontal gallery */
+.achievements-gallery {
+    position: relative;
+    margin: 2rem 0;
+}
+
+.gallery-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 15px 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.gallery-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.gallery-scroll::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 3px;
+}
+
+.gallery-item {
+    flex: 0 0 auto;
+    width: 180px;
+}
+
+.image-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.image-container img {
+    width: 180px;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    font-size: 0.8rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .image-caption {
+    transform: translateY(0);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .gallery-item {
+        width: 160px;
+    }
+    
+    .image-container img {
+        width: 160px;
+        height: 200px;
+    }
 }
 </style>
 {% endblock %} 

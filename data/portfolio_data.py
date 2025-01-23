@@ -54,23 +54,17 @@ portfolio_data = {
     
     'experience': [
         {
-            'role': 'ML Engineer Intern',
-            'company': 'Tech Company',
-            'company_url': 'https://company-website.com',
-            'duration': 'Summer 2023',
-            'description': 'Worked on cutting-edge ML projects, developing and implementing machine learning models for real-world applications. Collaborated with cross-functional teams to deliver innovative solutions.',
-            'logo': 'company_logo.png',
+            'role': 'AI Developer',
+            'company': 'SOUL LIMITED',
+            'company_url': 'https://soulunileaders.com/',
+            'duration': 'Jan 2024 - Present',
+            'description': 'Worked on cutting-edge Healthcare ML projects, developing and implementing machine learning models for real-world applications. Collaborated with cross-functional teams to deliver innovative solutions.',
+            'logo': 'soul.jpg',
             'achievements': [
                 'Developed ML model with 95% accuracy',
                 'Reduced processing time by 30%'
             ],
-            'technologies': ['Python', 'TensorFlow', 'AWS']
-        },
-        {
-            'company': 'SOUL LIMITED',
-            'role': 'AI Developer',
-            'duration': 'Jan 2024 - Present',
-            'description': 'Leading AI/ML initiatives focused on developing intelligent solutions. Working on implementing state-of-the-art machine learning models and deploying them to production.'
+            'technologies': ['Python', 'TensorFlow', 'Flask','IoT']
         },
         {
             'company': 'Johnson Controls',
@@ -90,31 +84,31 @@ portfolio_data = {
         {
             'degree': 'BTech in Computer Science',
             'institution': 'KIIT',
-            'duration': '2020 - 2024',
-            'gpa': '8.5',
+            'duration': '2019 - 2023',
+            'cgpa': '9',
             'website': 'https://kiit.ac.in',
-            'logo': 'kiit_logo.png',
-            'banner_image': 'kiit_campus.jpg',
+            'logo': 'kiit.png',
+            'banner_image': 'campus.jpg',
             'achievements': [
                 {
-                    'title': "Dean's List Award",
+                    'title': "Premier League Awards",
                     'description': 'Achieved academic excellence',
-                    'image': 'deans_list.jpg'
+                    'image': 'premier.jpg'
                 },
                 # Add more achievements
             ],
             'semesters': [
                 {
-                    'name': 'Semester 1',
-                    'gpa': '8.7',
-                    'marksheet': 'sem1_marksheet.pdf'
+                    'name': 'Semester 1-8',
+                    'cgpa': '8.7',
+                    'marksheet': 'all semester cgpa.pdf'
                 },
                 # Add more semesters
             ],
             'graduation_photos': [
                 {
-                    'image': 'grad1.jpg',
-                    'caption': 'Graduation Ceremony 2024'
+                    'image': 'graduation_ceremony.jpg',
+                    'caption': 'Graduation Ceremony 2023'
                 },
                 # Add more photos
             ]
@@ -124,8 +118,7 @@ portfolio_data = {
             'institution': 'Uttaranchal University',
             'duration': '2024 - 2026',
             'gpa': '8.8'
-        }
-        # Add more education
+        },
     ],
     
     'certifications': [
