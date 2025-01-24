@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+    {% extends "base.html" %}
 
 {% block content %}
 <div class="container">
@@ -71,6 +71,15 @@
 
                     <!-- Description -->
                     <p class="card-text">{{ hustle.description }}</p>
+                    {% if hustle.book_pdf %}
+                    <p class="text-center mt-3">
+                        <a href="{{ url_for('static', filename='documents/' + hustle.book_pdf) }}" 
+                           class="btn btn-primary btn-lg"
+                           target="_blank">
+                            <i class="bi bi-book-half me-2"></i>Read My Book
+                        </a>
+                    </p>
+                    {% endif %}
 
                     <!-- Skills Used -->
                     <div class="mb-3">
@@ -224,6 +233,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .achievement-item {
     margin-bottom: 0.5rem;
+}
+
+.book-section {
+    text-align: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+    border-radius: 12px;
+}
+
+.book-cover img {
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.book-cover img:hover {
+    transform: scale(1.05);
+}
+
+.book-section .btn {
+    background: linear-gradient(45deg, #2b5876, #4e4376);
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.book-section .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes float {

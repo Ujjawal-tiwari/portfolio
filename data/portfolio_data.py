@@ -90,6 +90,7 @@ portfolio_data = {
             'duration': 'Jan 2024 - Present',
             'description': 'Worked on cutting-edge Healthcare ML projects, developing and implementing machine learning models for real-world applications. Collaborated with cross-functional teams to deliver innovative solutions.',
             'logo': 'soul.jpg',
+            'certificate_pdf': 'soul_experience.pdf',  
             'achievements': [
                 'Developed ML model with 95% accuracy',
                 'Reduced processing time by 30%'
@@ -103,6 +104,7 @@ portfolio_data = {
             'duration': 'Jan 2023 - Oct 2023',
             'description': 'Developed and maintained web applications using modern technologies. Implemented responsive designs and integrated backend services.',
             'logo': 'johnson.png',
+            'certificate_pdf': 'johnson_experience.pdf',  
             'achievements': [
                 'Developed Web Application for the 3 tier fire detection alarming system',
                 'Reduced processing time by 60%'
@@ -116,6 +118,7 @@ portfolio_data = {
             'company_url': 'https://www.highradius.com/',
             'description': 'Gained hands-on experience in software development and AI/ML projects. Contributed to team projects and learned industry best practices.',
             'logo': 'highradius.png',
+            'certificate_pdf': 'highradius_experience.pdf',  
             'achievements': [
                 'Developed ML model with 95% accuracy',
             ],
@@ -131,36 +134,62 @@ portfolio_data = {
             'cgpa': '9',
             'website': 'https://kiit.ac.in',
             'logo': 'kiit.png',
-            'banner_image': 'campus.jpg',
+            'banner_image': 'campus.jpg',  
             'achievements': [
                 {
                     'title': "Premier League Awards",
                     'description': 'Achieved academic excellence',
-                    'image': 'premier.jpg'
+                    'image': 'premier.jpg',  
+                    'caption': 'Receiving Premier League Award 2023'
                 },
-                # Add more achievements
+                 {
+                    'title': "Premier League Awards",
+                    'description': 'Achieved academic excellence',
+                    'image': 'essay (2).png',  
+                    'caption': 'Receiving Premier League Award 2023'
+                },
+                 {
+                    'title': "Premier League Awards",
+                    'description': 'Achieved academic excellence',
+                    'image': 'essay (1).png',  
+                    'caption': 'Receiving Premier League Award 2023'
+                },
             ],
             'semesters': [
                 {
                     'name': 'Semester 1-8',
                     'cgpa': '8.7',
-                    'marksheet': 'all semester cgpa.pdf'
-                },
-                # Add more semesters
+                    'marksheet': 'all_semester_cgpa.pdf'
+                }
             ],
             'graduation_photos': [
                 {
-                    'image': 'graduation_ceremony.jpg',
+                    'image': 'graduation_ceremony.jpg',  
                     'caption': 'Graduation Ceremony 2023'
                 },
-                # Add more photos
+                {
+                    'image': 'images.png',  
+                    'caption': '2023 19th ceremony'
+                },
+                {
+                    'image': 'classmates.jpg',  
+                    'caption': 'With My Amazing Classmates'
+                },
+                {
+                    'image': 'campus_farewell.jpg',  
+                    'caption': 'Last Day at KIIT Campus'
+                },
+                {
+                    'image': 'department_photo.jpg',  
+                    'caption': 'Computer Science Department Group Photo'
+                }
             ]
         },
         {
             'degree': 'MBA in Information Technology',
             'institution': 'Uttaranchal University',
             'duration': '2024 - 2026',
-            'gpa': '8.8',
+            'cgpa': '8.8',
             'website': 'https://www.uudoon.in/',
             'logo': 'UU.png',
             'banner_image': 'johnson.png',
@@ -236,7 +265,7 @@ portfolio_data = {
             'role': 'Associate Member',
             'duration': '2020 - Present',
             'description': 'Active member contributing to robotics projects and workshops.',
-            'image': 'kii_robotics.jpg',  # Add community logo to static/images/communities/
+            'image': 'kii_robotics.jpg',  
             'link': 'https://kiit.ac.in/robotics/'
         },
         {
@@ -276,6 +305,28 @@ portfolio_data = {
     
     'side_hustles': [
         {
+            'title': 'Hindu Mythology Book Author',
+            'platform': 'Self-Published',
+            'period': '2023 - Present',
+            'earnings': 'Personal Project',
+            'description': 'Author of a comprehensive book on Hindu mythology, exploring unique Vedic stories and their deep philosophical meanings. The book delves into lesser-known tales and their relevance in modern times.',
+            'skills_used': [
+                'Research',
+                'Creative Writing',
+                'Vedic Literature',
+                'Storytelling',
+                'Historical Analysis'
+            ],
+            'achievements': [
+                'Authored a complete book on Hindu mythology',
+                'Researched and compiled unique Vedic stories',
+                'Provided modern interpretations of ancient wisdom'
+            ],
+            'icon': 'bi-book',
+            'book_pdf': 'poetry.pdf',
+            'book_cover': 'book_cover.jpg'
+        },
+        {
             'title': 'Freelance ML Projects',
             'description': 'Developing custom machine learning solutions for clients.',
             'period': '2022 - Present',
@@ -286,7 +337,7 @@ portfolio_data = {
                 'Completed 10+ projects with 5-star ratings',
                 'Specialized in computer vision applications'
             ],
-            'icon': 'bi-laptop'  # Bootstrap icon class
+            'icon': 'bi-laptop'  
         },
         {
             'title': 'Technical Writing',
@@ -306,8 +357,8 @@ portfolio_data = {
     
     'chess_profile': {
         'title': "I'm a Sharp Knight, Wanna Try Me?",
-        'rating': '1800+',  # Your chess rating if you have one
-        'lichess_username': 'your_lichess_username',  # Replace with your username
+        'rating': '1800+',  
+        'lichess_username': 'your_lichess_username',  
         'description': 'Challenge me to a game of chess! I love strategic battles and would be happy to play with you.',
         'achievements': [
             'Won multiple college tournaments',

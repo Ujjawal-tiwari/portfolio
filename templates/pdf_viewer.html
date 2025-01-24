@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pdf-container">
+    <!-- PDF.js viewer -->
+    <div id="pdf-viewer" class="pdf-viewer">
+        <div class="toolbar">
+            <button id="prev" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-chevron-left"></i> Previous
+            </button>
+            <button id="next" class="btn btn-outline-primary btn-sm">
+                Next <i class="bi bi-chevron-right"></i>
+            </button>
+            <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+            <button id="zoomIn" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-zoom-in"></i>
+            </button>
+            <button id="zoomOut" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-zoom-out"></i>
+            </button>
+            <a href="{{ url_for('static', filename='documents/' + pdf_file) }}" 
+               class="btn btn-outline-success btn-sm" 
+               download>
+                <i class="bi bi-download"></i> Download PDF
+            </a>
+        </div>
+        <canvas id="pdf-render"></canvas>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.pdf-container {
+    padding: 20px;
+    height: calc(100vh - 100px);
+    background: #f8f9fa;
+}
+
+.pdf-viewer {
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.toolbar {
+    padding: 10px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#pdf-render {
+    margin: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+.toolbar span {
+    margin: 0 10px;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<!-- PDF.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<script>
+// PDF.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+
+let pdfDoc = null,
+    pageNum = 1,
+    pageRendering = false,
+    pageNumPending = null,
+    scale = 1.5;
+
+const canvas = document.getElementById('pdf-render'),
+      ctx = canvas.getContext('2d');
+
+// Load the PDF
+fetch("{{ url_for('static', filename='documents/' + pdf_file) }}")
+    .then(response => response.blob())
+    .then(blob => {
+        const url = URL.createObjectURL(blob);
+        loadPDF(url);
+    });
+
+function loadPDF(url) {
+    pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
+        pdfDoc = pdfDoc_;
+        document.getElementById('page_count').textContent = pdfDoc.numPages;
+        renderPage(pageNum);
+    });
+}
+
+function renderPage(num) {
+    pageRendering = true;
+    pdfDoc.getPage(num).then(page => {
+        const viewport = page.getViewport({scale: scale});
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
+
+        const renderTask = page.render(renderContext);
+
+        renderTask.promise.then(() => {
+            pageRendering = false;
+            if (pageNumPending !== null) {
+                renderPage(pageNumPending);
+                pageNumPending = null;
+            }
+        });
+
+        document.getElementById('page_num').textContent = num;
+    });
+}
+
+function queueRenderPage(num) {
+    if (pageRendering) {
+        pageNumPending = num;
+    } else {
+        renderPage(num);
+    }
+}
+
+function onPrevPage() {
+    if (pageNum <= 1) return;
+    pageNum--;
+    queueRenderPage(pageNum);
+}
+
+function onNextPage() {
+    if (pageNum >= pdfDoc.numPages) return;
+    pageNum++;
+    queueRenderPage(pageNum);
+}
+
+function zoomIn() {
+    scale *= 1.2;
+    renderPage(pageNum);
+}
+
+function zoomOut() {
+    scale *= 0.8;
+    renderPage(pageNum);
+}
+
+document.getElementById('prev').addEventListener('click', onPrevPage);
+document.getElementById('next').addEventListener('click', onNextPage);
+document.getElementById('zoomIn').addEventListener('click', zoomIn);
+document.getElementById('zoomOut').addEventListener('click', zoomOut);
+</script>
+{% endblock %}

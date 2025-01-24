@@ -61,14 +61,42 @@
         <div class="col-12">
             <h2 class="h3 mb-4">Professional Experience</h2>
             {% for exp in data.experience %}
-            <div class="card mb-3">
+            <div class="card mb-3" data-aos="fade-up">
                 <div class="card-body">
-                    <h5 class="card-title">{{ exp.role }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ exp.company }}</h6>
-                    <p class="card-text">
-                        <small class="text-muted">{{ exp.duration }}</small>
-                    </p>
-                    <p class="card-text">{{ exp.description }}</p>
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center mb-3 mb-md-0">
+                            {% if exp.logo %}
+                            <img src="{{ url_for('static', filename='images/' + exp.logo) }}" 
+                                 alt="{{ exp.company }}" 
+                                 class="company-logo img-fluid"
+                                 style="max-height: 80px;">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-10">
+                            <h5 class="card-title">{{ exp.role }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ exp.company }}</h6>
+                            <p class="card-text">
+                                <small class="text-muted">{{ exp.duration }}</small>
+                            </p>
+                            <p class="card-text">{{ exp.description }}</p>
+                            <div class="mt-3">
+                                {% if exp.company_url %}
+                                <a href="{{ exp.company_url }}" 
+                                   class="btn btn-outline-primary me-2 website-btn" 
+                                   target="_blank">
+                                    <i class="bi bi-globe me-2"></i>Visit Website
+                                </a>
+                                {% endif %}
+                                {% if exp.certificate_pdf %}
+                                <a href="{{ url_for('static', filename='documents/' + exp.certificate_pdf) }}" 
+                                   class="btn btn-outline-success certificate-btn" 
+                                   target="_blank">
+                                    <i class="bi bi-file-earmark-pdf me-2"></i>Experience
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             {% endfor %}
