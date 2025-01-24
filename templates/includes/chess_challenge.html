@@ -4,40 +4,100 @@
 </div>
 
 <!-- Chess Challenge Modal -->
-<div class="modal fade" id="chessModal" tabindex="-1" aria-labelledby="chessModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="chessModal" tabindex="-1">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="chessModalLabel">Chess Challenge</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Chess Challenge</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div class="chess-board-preview mb-4">
-                    <!-- Animated Chess Board Preview -->
-                    <div class="chess-board">
-                        <div class="piece knight">♞</div>
-                    </div>
+                <!-- Platform Selection -->
+                <div class="mb-3">
+                    <label class="form-label">Choose Platform</label>
+                    <select class="form-select" id="chessPlatform">
+                        <option value="chess.com">Chess.com</option>
+                        <option value="lichess">Lichess</option>
+                    </select>
                 </div>
-                <form id="challengeForm" action="{{ url_for('send_chess_challenge') }}" method="POST">
-                    <div class="mb-3">
-                        <label for="challenger_name" class="form-label">Your Name</label>
-                        <input type="text" class="form-control" id="challenger_name" name="challenger_name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="challenger_email" class="form-label">Your Email</label>
-                        <input type="email" class="form-control" id="challenger_email" name="challenger_email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="time_control" class="form-label">Preferred Time Control</label>
-                        <select class="form-select" id="time_control" name="time_control">
-                            <option value="blitz">Blitz (5+0)</option>
-                            <option value="rapid">Rapid (10+0)</option>
-                            <option value="classical">Classical (30+0)</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Send Challenge</button>
-                </form>
+
+                <!-- Time Control -->
+                <div class="mb-3">
+                    <label class="form-label">Time Control</label>
+                    <select class="form-select" id="timeControl">
+                        <option value="blitz">Blitz (5+0)</option>
+                        <option value="rapid">Rapid (10+0)</option>
+                        <option value="classical">Classical (30+0)</option>
+                    </select>
+                </div>
+
+                <!-- Player Info -->
+                <div class="mb-3">
+                    <label class="form-label">Your Username</label>
+                    <input type="text" class="form-control" id="challengerUsername" required>
+                </div>
+
+                <!-- Live Chess Board Preview -->
+                <div id="chessBoard" class="mb-3">
+                    <!-- Integration with chess.js and chessboard.js -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="sendChallenge">Send Challenge</button>
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+<!-- Add required chess libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize chess board
+    const board = Chessboard('chessBoard', {
+        position: 'start',
+        showNotation: true
+    });
+
+    // Handle challenge submission
+    document.getElementById('sendChallenge').addEventListener('click', async function() {
+        const platform = document.getElementById('chessPlatform').value;
+        const timeControl = document.getElementById('timeControl').value;
+        const username = document.getElementById('challengerUsername').value;
+
+        if (!username) {
+            alert('Please enter your username');
+            return;
+        }
+
+        try {
+            const response = await fetch('/send_chess_challenge', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    platform,
+                    timeControl,
+                    challenger_username: username
+                })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert('Challenge sent! You will receive an email notification.');
+                window.open(data.challenge_url, '_blank');
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to send challenge. Please try again.');
+        }
+    });
+});
+</script> 

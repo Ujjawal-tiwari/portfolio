@@ -6,6 +6,7 @@ from email.mime.multipart import MIMEMultipart
 import os
 from datetime import datetime
 import uuid
+import requests
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key'  # Required for flash messages
@@ -96,57 +97,71 @@ def communities():
 def side_hustles():
     return render_template('side_hustles.html', data=portfolio_data)
 
-@app.route('/send-chess-challenge', methods=['POST'])
+@app.route('/send_chess_challenge', methods=['POST'])
 def send_chess_challenge():
+    data = request.json
+    platform = data.get('platform')
+    time_control = data.get('timeControl')
+    challenger_username = data.get('challenger_username')
+
+    # Your Chess.com username
+    your_username = "your_chess_com_username"  # Replace with your username
+    
+    # Create challenge URL for Chess.com
+    challenge_url = f"https://www.chess.com/play/online/new?opponent={your_username}"
+    
+    # Send email notification
+    sender_email = "your_email@gmail.com"  # Replace with your Gmail
+    sender_password = "your_app_password"   # Use Gmail App Password
+    receiver_email = "your_email@gmail.com" # Your notification email
+
+    # Email content
+    subject = "New Chess Challenge!"
+    body = f"""
+    You have a new chess challenge!
+    
+    Challenger: {challenger_username}
+    Platform: Chess.com
+    Time Control: {time_control}
+    
+    Click here to accept the challenge: {challenge_url}
+    """
+
     try:
-        challenger_name = request.form.get('challenger_name')
-        challenger_email = request.form.get('challenger_email')
-        time_control = request.form.get('time_control')
-        
-        # Generate a unique game ID
-        game_id = str(uuid.uuid4())[:8]
-        
-        # Create Lichess challenge link (you'll need to set this up with Lichess API)
-        lichess_username = portfolio_data['chess_profile']['lichess_username']
-        challenge_link = f"https://lichess.org/?user={lichess_username}#friend"
-        
-        # Email content
-        subject = f"New Chess Challenge from {challenger_name}"
-        body = f"""
-        You have a new chess challenge!
-        
-        Challenger: {challenger_name}
-        Email: {challenger_email}
-        Time Control: {time_control}
-        Game ID: {game_id}
-        
-        Challenge Link: {challenge_link}
-        
-        Respond to accept the challenge!
-        """
-        
-        # Send email
-        msg = MIMEMultipart()
-        msg['From'] = EMAIL_USER
-        msg['To'] = EMAIL_USER  # Sending to yourself
-        msg['Subject'] = subject
-        msg.attach(MIMEText(body, 'plain'))
-        
-        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
-        server.starttls()
-        server.login(EMAIL_USER, EMAIL_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        
+        # Create message
+        message = MIMEMultipart()
+        message["From"] = sender_email
+        message["To"] = receiver_email
+        message["Subject"] = subject
+
+        # Add body to email
+        message.attach(MIMEText(body, "plain"))
+
+        # Create SMTP session
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(sender_email, sender_password)
+            server.send_message(message)
+
         return jsonify({
             'success': True,
-            'message': 'Challenge sent successfully! Check your email for the game link.'
+            'challenge_url': challenge_url,
+            'message': 'Challenge sent! Check your email for notification.'
         })
+
     except Exception as e:
+        print(f"Error: {e}")
         return jsonify({
             'success': False,
-            'message': 'Error sending challenge. Please try again.'
-        }), 500
+            'message': 'Failed to send challenge. Please try again.'
+        })
+
+def get_time_control(time_control):
+    time_controls = {
+        'blitz': 300,      # 5 minutes
+        'rapid': 600,      # 10 minutes
+        'classical': 1800  # 30 minutes
+    }
+    return time_controls.get(time_control, 300)
 
 @app.route('/education/<int:edu_index>')
 def education_journey(edu_index):

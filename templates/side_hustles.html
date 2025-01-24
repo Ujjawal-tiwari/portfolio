@@ -138,6 +138,25 @@
 <!-- Include the chess challenge modal -->
 {% include 'includes/chess_challenge.html' %}
 
+<!-- Make sure all required scripts are loaded -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Add this to test if the button click is working
+document.addEventListener('DOMContentLoaded', function() {
+    const challengeButton = document.getElementById('sendChallenge');
+    if (challengeButton) {
+        console.log('Challenge button found');
+        challengeButton.onclick = function() {
+            console.log('Button clicked!');
+        }
+    } else {
+        console.error('Challenge button not found');
+    }
+});
+</script>
+
 <!-- Add these styles to your existing CSS or include them here -->
 <style>
 .hustle-card {
