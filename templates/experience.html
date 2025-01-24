@@ -20,7 +20,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-2 text-center mb-3 mb-md-0">
                                 {% if exp.logo %}
-                                <img src="{{ url_for('static', filename='images/companies/' + exp.logo) }}" 
+                                <img src="{{ url_for('static', filename='images/' + exp.logo) }}" 
                                      alt="{{ exp.company }}" 
                                      class="company-logo">
                                 {% else %}
@@ -61,7 +61,10 @@
                             </div>
                         </div>
                         <div class="card-overlay">
-                            <span>Click to visit company website <i class="bi bi-box-arrow-up-right ms-2"></i></span>
+                            <a href="{{ exp.company_url }}" class="company-link" target="_blank">
+                                <span>Learn More</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -99,4 +102,59 @@
     </div>
     {% endif %}
 </div>
+
+<style>
+/* Card and overlay positioning */
+.interactive-card {
+    position: relative !important;
+    min-height: 300px;  /* Ensure minimum height */
+}
+
+.card-body {
+    position: relative !important;
+    padding-bottom: 80px !important;  /* Increased padding to make room for button */
+}
+
+.card-overlay {
+    position: absolute !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 100 !important;  /* Ensure it's above other content */
+}
+
+.interactive-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.company-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(45deg, #2196F3, #00BCD4);
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.company-link:hover {
+    background: linear-gradient(45deg, #00BCD4, #2196F3);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.company-link i {
+    transition: transform 0.3s ease;
+}
+
+.company-link:hover i {
+    transform: translateX(4px);
+}
+</style>
 {% endblock %} 

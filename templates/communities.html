@@ -37,7 +37,7 @@
                     
                     {% if community.link %}
                     <a href="{{ community.link }}" 
-                       class="btn btn-outline-primary btn-sm" 
+                       class="community-btn" 
                        target="_blank">
                         <i class="bi bi-link-45deg me-1"></i>
                         Visit Community
@@ -115,6 +115,47 @@
 
 .community-card:hover .community-logo img {
     transform: scale(1.1);
+}
+
+/* New button styles */
+.community-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.community-btn:hover {
+    background: var(--primary-color);
+    color: var(--dark-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.community-btn:active {
+    transform: translateY(0);
+}
+
+.community-btn i {
+    transition: transform 0.3s ease;
+}
+
+.community-btn:hover i {
+    transform: rotate(45deg);
+}
+
+/* Make sure the button is visible on all backgrounds */
+.community-card .community-btn {
+    margin-top: 1rem;
+    z-index: 2;
 }
 </style>
 {% endblock %} 
