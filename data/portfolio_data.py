@@ -142,6 +142,12 @@ portfolio_data = {
                     'image': 'premier.jpg',  
                     'caption': 'Receiving Premier League Award 2023'
                 },
+                {
+                    'title': "College Event",
+                    'description': 'Poetry contest',
+                    'image': 'kalamkaar.jpg',  
+                    'caption': 'Receiving Premier League Award 2023'
+                },
                  {
                     'title': "Premier League Awards",
                     'description': 'Achieved academic excellence',
@@ -176,13 +182,9 @@ portfolio_data = {
                     'caption': 'With My Amazing Classmates'
                 },
                 {
-                    'image': 'campus_farewell.jpg',  
-                    'caption': 'Last Day at KIIT Campus'
+                    'image': 'campus.jpg',  
+                    'caption': 'First Day at KIIT Campus'
                 },
-                {
-                    'image': 'department_photo.jpg',  
-                    'caption': 'Computer Science Department Group Photo'
-                }
             ]
         },
         {
@@ -266,7 +268,7 @@ portfolio_data = {
             'duration': '2020 - Present',
             'description': 'Active member contributing to robotics projects and workshops.',
             'image': 'kii_robotics.jpg',  
-            'link': 'https://kiit.ac.in/robotics/'
+            'link': 'https://krs.kiit.ac.in/'
         },
         {
             'name': ' AI Automation Agency Hub',
