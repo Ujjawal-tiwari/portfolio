@@ -9,7 +9,9 @@
             <p class="lead mt-3">{{ data.personal_info.tagline }}</p>
             <div class="mt-4">
                 <a href="/projects" class="btn btn-primary me-2">View My Work</a>
-                <a href="/contact" class="btn btn-outline-primary">Contact Me</a>
+                <a href="/contact" class="btn btn-outline-primary me-2">Contact Me</a>
+                <a href="{{ url_for('static', filename='Ujjawal_Tiwari_Associate_AI_ML_Developer_Resume.pdf') }}" target="_blank" class="btn btn-secondary me-2">View Resume</a>
+                <a href="{{ url_for('static', filename='Ujjawal_Tiwari_Associate_AI_ML_Developer_Resume.pdf') }}" download class="btn btn-outline-secondary">Download Resume</a>
             </div>
         </div>
         <div class="col-lg-6 text-center">
