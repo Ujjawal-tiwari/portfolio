@@ -222,7 +222,6 @@ portfolio_data = {
                     'name': 'Semester 3',
                     'Semester 3 GPA': '9.2',
                 },
-                {
                 # Add more semesters
             ],
 
