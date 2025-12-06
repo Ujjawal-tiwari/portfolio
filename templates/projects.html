@@ -27,18 +27,17 @@
                                         id="featured-video" 
                                         class="featured-video" 
                                         controls 
-                                        preload="metadata"
-                                        poster="{{ url_for('static', filename='video/app_video_poster.jpg') }}"
-                                        onclick="this.play()">
+                                        autoplay
+                                        muted
+                                        loop
+                                        playsinline
+                                        preload="auto">
                                         <source src="{{ url_for('static', filename='video/' + project.video) }}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
-                                    <div class="play-overlay" id="play-overlay">
-                                        <div class="play-button">
-                                            <i class="bi bi-play-fill"></i>
-                                        </div>
-                                        <p class="play-text">Click to Watch Demo</p>
-                                    </div>
+                                    <button class="maximize-btn" id="maximize-btn" title="Maximize video">
+                                        <i class="bi bi-arrows-fullscreen"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -96,33 +95,124 @@
     </div>
 </div>
 
+<!-- Video Modal (YouTube-style) -->
+<div class="video-modal" id="video-modal">
+    <div class="video-modal-backdrop" id="modal-backdrop"></div>
+    <div class="video-modal-container">
+        <button class="video-modal-close" id="modal-close" title="Close">
+            <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="video-modal-content">
+            <video 
+                id="modal-video" 
+                class="modal-video-player" 
+                controls 
+                autoplay
+                muted
+                loop
+                playsinline>
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const video = document.getElementById('featured-video');
-    const playOverlay = document.getElementById('play-overlay');
+    const featuredVideo = document.getElementById('featured-video');
+    const maximizeBtn = document.getElementById('maximize-btn');
+    const videoModal = document.getElementById('video-modal');
+    const modalVideo = document.getElementById('modal-video');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalClose = document.getElementById('modal-close');
     
-    if (video && playOverlay) {
-        // Hide overlay when video starts playing
-        video.addEventListener('play', function() {
-            playOverlay.style.opacity = '0';
-            setTimeout(() => {
-                playOverlay.style.display = 'none';
-            }, 300);
+    // Ensure video autoplays (muted for browser compatibility)
+    if (featuredVideo) {
+        featuredVideo.play().catch(function(error) {
+            console.log('Autoplay prevented:', error);
         });
         
-        // Show overlay when video is paused
-        video.addEventListener('pause', function() {
-            playOverlay.style.display = 'flex';
-            setTimeout(() => {
-                playOverlay.style.opacity = '1';
-            }, 10);
-        });
-        
-        // Click overlay to play video
-        playOverlay.addEventListener('click', function() {
-            video.play();
+        // Allow user to unmute by clicking on the video
+        featuredVideo.addEventListener('click', function() {
+            if (featuredVideo.muted) {
+                featuredVideo.muted = false;
+            }
         });
     }
+    
+    // Open modal on maximize button click
+    if (maximizeBtn && videoModal) {
+        maximizeBtn.addEventListener('click', function() {
+            const currentTime = featuredVideo.currentTime;
+            const isPlaying = !featuredVideo.paused;
+            const videoSource = featuredVideo.querySelector('source').src;
+            
+            // Set modal video source
+            if (modalVideo.querySelector('source')) {
+                modalVideo.querySelector('source').src = videoSource;
+            } else {
+                const source = document.createElement('source');
+                source.src = videoSource;
+                source.type = 'video/mp4';
+                modalVideo.appendChild(source);
+            }
+            
+            // Load and set time
+            modalVideo.load();
+            modalVideo.currentTime = currentTime;
+            
+            // Show modal
+            videoModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Unmute modal video
+            modalVideo.muted = false;
+            
+            // Play after a short delay to ensure video is loaded
+            setTimeout(function() {
+                if (isPlaying) {
+                    modalVideo.play();
+                }
+            }, 100);
+        });
+    }
+    
+    // Close modal
+    function closeModal() {
+        if (videoModal) {
+            const currentTime = modalVideo.currentTime;
+            const isPlaying = !modalVideo.paused;
+            
+            // Sync time back to featured video
+            featuredVideo.currentTime = currentTime;
+            if (isPlaying) {
+                featuredVideo.play();
+            } else {
+                featuredVideo.pause();
+            }
+            
+            // Hide modal
+            videoModal.classList.remove('active');
+            document.body.style.overflow = '';
+            modalVideo.pause();
+            modalVideo.muted = true; // Reset muted state
+        }
+    }
+    
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+    
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', closeModal);
+    }
+    
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
 });
 </script>
 {% endblock %} 
