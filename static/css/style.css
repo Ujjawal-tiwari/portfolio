@@ -826,6 +826,9 @@ body {
     visibility: hidden;
     transition: all 0.3s ease;
     pointer-events: none;
+    overflow: hidden; /* Prevent scrolling */
+    padding: 20px; /* Add padding to prevent edge touching */
+    box-sizing: border-box;
 }
 
 .video-modal.active {
@@ -846,15 +849,17 @@ body {
 
 .video-modal-container {
     position: relative;
-    width: 90%;
-    max-width: 1200px;
-    max-height: 90vh;
+    width: 85%;
+    max-width: 853px; /* YouTube medium player size */
+    max-height: calc(100vh - 40px); /* Ensure it fits in viewport with padding */
     z-index: 10000;
     display: flex;
     align-items: center;
     justify-content: center;
     transform: scale(0.9);
     transition: transform 0.3s ease;
+    margin: auto;
+    overflow: hidden; /* Prevent content overflow */
 }
 
 .video-modal.active .video-modal-container {
@@ -863,7 +868,7 @@ body {
 
 .video-modal-close {
     position: absolute;
-    top: -45px;
+    top: -50px;
     right: 0;
     width: 40px;
     height: 40px;
@@ -878,6 +883,14 @@ body {
     transition: all 0.3s ease;
     z-index: 10001;
     backdrop-filter: blur(10px);
+}
+
+@media (max-height: 700px) {
+    .video-modal-close {
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.7);
+    }
 }
 
 .video-modal-close:hover {
@@ -898,6 +911,16 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    max-height: calc(100vh - 80px); /* Ensure it doesn't exceed viewport */
+}
+
+/* For smaller viewports, adjust aspect ratio to fit */
+@media (max-height: 700px) {
+    .video-modal-content {
+        padding-top: 0;
+        height: calc(100vh - 80px);
+        min-height: 300px;
+    }
 }
 
 .modal-video-player {
@@ -908,13 +931,25 @@ body {
     height: 100%;
     object-fit: contain;
     border-radius: 12px;
+    max-height: 100%; /* Prevent video from exceeding container */
 }
 
 /* Responsive modal */
+@media (max-width: 992px) {
+    .video-modal-container {
+        width: 90%;
+        max-width: 640px;
+    }
+}
+
 @media (max-width: 768px) {
     .video-modal-container {
         width: 95%;
-        max-height: 85vh;
+        max-width: 100%;
+    }
+    
+    .video-modal-content {
+        max-height: calc(100vh - 80px);
     }
     
     .video-modal-close {
