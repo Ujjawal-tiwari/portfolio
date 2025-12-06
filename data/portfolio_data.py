@@ -89,7 +89,7 @@ portfolio_data = {
             'company_url': 'https://www.acuityanalytics.com/',
             'duration': 'March 2025 - Present',
             'description': 'Worked on cutting-edge Data extraction ML projects,used LLM calls and multiple agents for on demand format data from large files with 99 percent accuracy.',
-            'logo': 'acuity.JFIF',
+            'logo': 'acuity.jpg',
             'certificate_pdf': 'acuity_experience.pdf',  
             'achievements': [
                 'Developed data extraction models fordifferent banking applications, including documents like pdf,scanned images,excel files,etc.'
