@@ -163,7 +163,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show modal
             videoModal.classList.add('active');
+            // Prevent scrolling on body and html
+            document.body.classList.add('modal-open');
+            document.documentElement.classList.add('modal-open');
             document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.height = '100%';
+            document.documentElement.style.overflow = 'hidden';
             
             // Unmute modal video
             modalVideo.muted = false;
@@ -193,7 +200,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Hide modal
             videoModal.classList.remove('active');
+            // Restore scrolling
+            document.body.classList.remove('modal-open');
+            document.documentElement.classList.remove('modal-open');
             document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+            document.documentElement.style.overflow = '';
             modalVideo.pause();
             modalVideo.muted = true; // Reset muted state
         }
