@@ -9,31 +9,120 @@
         </div>
     </div>
 
-    <div class="row">
-        {% for project in data.projects %}
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                {% if project.image %}
-                <img src="{{ url_for('static', filename='images/projects/' + project.image) }}" 
-                     class="card-img-top" alt="{{ project.title }}">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ project.title }}</h5>
-                    <p class="card-text">{{ project.description }}</p>
-                    <div class="d-flex flex-wrap gap-2 mb-3">
-                        {% for tech in project.technologies %}
-                        <span class="badge bg-secondary">{{ tech }}</span>
-                        {% endfor %}
+    <!-- Featured Project with Video -->
+    {% for project in data.projects %}
+        {% if project.featured and project.video %}
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="featured-project-card">
+                    <div class="featured-badge">
+                        <i class="bi bi-star-fill"></i> Featured Project
                     </div>
-                    {% if project.github_link %}
-                    <a href="{{ project.github_link }}" class="btn btn-outline-primary" target="_blank">
-                        View on GitHub
-                    </a>
-                    {% endif %}
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <div class="video-container-wrapper">
+                                <div class="video-glow"></div>
+                                <div class="video-container">
+                                    <video 
+                                        id="featured-video" 
+                                        class="featured-video" 
+                                        controls 
+                                        preload="metadata"
+                                        poster="{{ url_for('static', filename='video/app_video_poster.jpg') }}"
+                                        onclick="this.play()">
+                                        <source src="{{ url_for('static', filename='video/' + project.video) }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="play-overlay" id="play-overlay">
+                                        <div class="play-button">
+                                            <i class="bi bi-play-fill"></i>
+                                        </div>
+                                        <p class="play-text">Click to Watch Demo</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="featured-content">
+                                <h2 class="featured-title">{{ project.title }}</h2>
+                                <p class="featured-description">{{ project.description }}</p>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    {% for tech in project.technologies %}
+                                    <span class="badge tech-badge">{{ tech }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% if project.github_link %}
+                                <a href="{{ project.github_link }}" class="btn btn-primary featured-btn" target="_blank">
+                                    <i class="bi bi-github"></i> View on GitHub
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Other Projects Grid -->
+    <div class="row">
+        {% for project in data.projects %}
+            {% if not project.featured %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    {% if project.image %}
+                    <img src="{{ url_for('static', filename='images/projects/' + project.image) }}" 
+                         class="card-img-top" alt="{{ project.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            {% for tech in project.technologies %}
+                            <span class="badge bg-secondary">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        {% if project.github_link %}
+                        <a href="{{ project.github_link }}" class="btn btn-outline-primary" target="_blank">
+                            View on GitHub
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         {% endfor %}
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('featured-video');
+    const playOverlay = document.getElementById('play-overlay');
+    
+    if (video && playOverlay) {
+        // Hide overlay when video starts playing
+        video.addEventListener('play', function() {
+            playOverlay.style.opacity = '0';
+            setTimeout(() => {
+                playOverlay.style.display = 'none';
+            }, 300);
+        });
+        
+        // Show overlay when video is paused
+        video.addEventListener('pause', function() {
+            playOverlay.style.display = 'flex';
+            setTimeout(() => {
+                playOverlay.style.opacity = '1';
+            }, 10);
+        });
+        
+        // Click overlay to play video
+        playOverlay.addEventListener('click', function() {
+            video.play();
+        });
+    }
+});
+</script>
 {% endblock %} 

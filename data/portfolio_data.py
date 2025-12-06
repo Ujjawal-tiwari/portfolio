@@ -58,8 +58,10 @@ portfolio_data = {
          {
             'title': 'AI Legal Consultation Model',
             'description': 'An AI chatbot that can answer any legal questions and provide legal advice as well as previous similer cases filed and verdicts of SC and HC. It uses the OpenAI API to generate responses and the Flask framework to create a web interface.',
-            'technologies': ['Python', 'OpenAI-API', 'Scikit-learn'],
-            'github_link': 'https://github.com/yourusername/project1'
+            'technologies': ['Python', 'Llama-3.1', 'Scikit-learn'],
+            'github_link': 'https://github.com/Ujjawal-tiwari/Legal-Consultants',
+            'video': 'app_video.mp4',
+            'featured': True
         },
          {
             'title': 'object,image & text detection Model',
