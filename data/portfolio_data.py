@@ -85,15 +85,28 @@ portfolio_data = {
     'experience': [
         {
             'role': 'AI Developer',
+            'company': 'Acuity Analytics',
+            'company_url': 'https://www.acuityanalytics.com/',
+            'duration': 'March 2025 - Present',
+            'description': 'Worked on cutting-edge Data extraction ML projects,used LLM calls and multiple agents for on demand format data from large files with 99 percent accuracy.',
+            'logo': 'acuity.JFIF',
+            'certificate_pdf': 'acuity_experience.pdf',  
+            'achievements': [
+                'Developed data extraction models fordifferent banking applications, including documents like pdf,scanned images,excel files,etc.'
+            ],
+            'technologies': ['AWS','Jupyter','Python', 'TensorFlow','Tesseract','OpenCV','Scikit-learn','Hugging Face Transformers','OpenAI API','Flask']
+        },
+        {
+            'role': 'AI Developer',
             'company': 'SOUL LIMITED',
             'company_url': 'https://soulunileaders.com/',
-            'duration': 'Jan 2024 - Present',
+            'duration': 'Jan 2024 - Feb 2025',
             'description': 'Worked on cutting-edge Healthcare ML projects, developing and implementing machine learning models for real-world applications. Collaborated with cross-functional teams to deliver innovative solutions.',
             'logo': 'soul.jpg',
             'certificate_pdf': 'soul_experience.pdf',  
             'achievements': [
-                'Developed ML model with 95% accuracy',
-                'Reduced processing time by 30%'
+                'Developed healthcare ML model with 95% accuracy',
+                'Reduced processing time by 60%,which was using heuristic methods and manual data entry.'
             ],
             'technologies': ['Python', 'TensorFlow', 'Flask', 'IoT']
         },
@@ -191,7 +204,7 @@ portfolio_data = {
             'degree': 'MBA in Information Technology',
             'institution': 'Uttaranchal University',
             'duration': '2024 - 2026',
-            'cgpa': '8.8',
+            'cgpa': '9.0',
             'website': 'https://www.uudoon.in/',
             'logo': 'UU.png',
             'banner_image': 'johnson.png',
@@ -199,8 +212,17 @@ portfolio_data = {
             'semesters': [
                 {
                     'name': 'Semester 1',
-                    'cgpa': '8.8',
+                    'Semester 1 GPA': '8.8',
                 },
+                {
+                    'name': 'Semester 2',
+                    'Semester 2 GPA': '8.7',
+                },
+                {
+                    'name': 'Semester 3',
+                    'Semester 3 GPA': '9.2',
+                },
+                {
                 # Add more semesters
             ],
 
